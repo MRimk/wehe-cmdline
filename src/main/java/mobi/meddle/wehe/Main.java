@@ -72,7 +72,7 @@ public class Main {
   private static boolean isValidArg(String arg) {
     return arg.equals("-n") || arg.equals("-s") || arg.equals("-m") || arg.equals("-u")
             || arg.equals("-c") || arg.equals("-a") || arg.equals("-k") || arg.equals("-t")
-            || arg.equals("-r") || arg.equals("-l") || arg.equals("-y");
+            || arg.equals("-r") || arg.equals("-l") || arg.equals("-y") || arg.equals("-site");
   }
 
   /**
@@ -137,6 +137,9 @@ public class Main {
             printError("\"" + arg + "\" is not a valid server name. Can only contain alphanumerics, "
                     + "period, and hyphen.");
           }
+          break;
+        case "-site": //url of server
+          Config.site = arg.toLowerCase();
           break;
         case "-m": //url of mlab server api
           Config.mLabLocateServer = arg;

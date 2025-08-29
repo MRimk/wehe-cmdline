@@ -399,6 +399,7 @@ public class Replay {
 
             JSONObject serverObj = (JSONObject) mLabServers.get(i); //get MLab server
             server = "wehe-" + serverObj.getString("machine"); //SideChannel URL
+            Log.d("MLAB SITE", "Server machine is:" + server);
             String mLabURL = ((JSONObject) serverObj.get("urls"))
                     .getString(Consts.MLAB_WEB_SOCKET_SERVER_KEY); //authentication URL
             wsConn = new WebSocketConnection(i, new URI(mLabURL)); //connect to WebSocket
@@ -429,6 +430,7 @@ public class Replay {
         return Consts.ERR_CONN_WS;
       }
     }
+    Log.d("Servers", "Servers to use: " + servers);
 
     for (String srvr : servers) {
       if (srvr.equals("")) { //check to make sure IP was returned by getServerIP
@@ -506,8 +508,15 @@ public class Replay {
    * @return JSONArray with the result of mlab locate service response
    */
   private JSONArray getMLabServerList() throws NoTopologyFoundException {
-    JSONObject mLabResp = sendRequest(Config.mLabLocateServer, "GET", false, null, null);
+    String locateURL;
+    if (!Objects.equals(Config.site, "")) {
+      locateURL = String.format("%s?site=%s", Config.mLabLocateServer, Config.site);
+    } else {
+      locateURL = Config.mLabLocateServer;
+    }
+    JSONObject mLabResp = sendRequest(locateURL, "GET", false, null, null);
     JSONArray mLabNearestServers = mLabResp.getJSONArray("results"); //get MLab servers list
+    Log.d("MLab Servers", "Nearest MLab servers: " + mLabNearestServers);
 
     // for single replay test, simply return the returned server
     if (!this.isLocalization) {
@@ -1618,7 +1627,7 @@ public class Replay {
         }
 
         // TODO uncomment following code when you want differentiation to occur
-        //differentiation = true;
+        differentiation = true;
         //inconclusive = true;
         diffResults.add(differentiation);
 
@@ -1923,7 +1932,7 @@ public class Replay {
         }
 
         try {
-          Thread.sleep(2000);
+          Thread.sleep(4000);
         } catch (InterruptedException e) {
           Log.w("Result Channel", "Sleep interrupted", e);
         }

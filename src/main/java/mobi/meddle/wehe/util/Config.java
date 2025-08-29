@@ -7,6 +7,7 @@ import mobi.meddle.wehe.constant.Consts;
  */
 public class Config {
   public static String appName;
+  public static String site = "";
   public static String serverDisplay = "wehe4.meddle.mobi";
   public static String mLabLocateServer = "https://locate.measurementlab.net/v2/nearest/wehe/replay";
   public static int numServers = 1;
