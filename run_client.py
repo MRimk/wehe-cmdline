@@ -5,7 +5,7 @@ def run_wehe_test(wehe_app, site='', results_dir='results'):
         'java', '-jar', 'wehe-cmdline-4.0.0.jar', 
         '-n', wehe_app,
         # '-s', '128.179.209.156', # uncomment this line to run the client with the local server (machine in the Lab)
-        '-m', 'https://locate-dot-mlab-sandbox.appspot.com/v2/nearest/wehe/replay', # this is the Locate service for the sandbox sites
+        # '-m', 'BLA', # this is where the Locate service URL for the sandbox sites should go
         '-l', 'debug', 
         '-y', # comment/uncomment this line to run the localization test
         '-c', '-r', '{}/'.format(results_dir)]
